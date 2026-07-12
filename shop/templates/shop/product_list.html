@@ -1,0 +1,10 @@
+<h1>Каталог учебных товаров</h1>
+<ul>
+    {% for product in products %}
+        <li>
+            <h2>{{ product.name }}</h2>
+            <p>Категория: {{ product.category.name }}</p>
+            <p>Цена: {{ product.price }} руб.</p>
+        </li>
+    {% endfor %}
+</ul>
