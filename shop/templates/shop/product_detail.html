@@ -3,34 +3,43 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-<div class="card shadow-sm p-4">
-    <div class="row">
-        <div class="col-md-6">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+<div class="row mt-4">
+    <!-- Блок с изображением -->
+    <div class="col-md-6 mb-4">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+        {% else %}
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded shadow" style="height: 350px;">
+                <span>Нет изображения</span>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Блок с информацией -->
+    <div class="col-md-6">
+        <h1 class="fw-bold mb-2">{{ product.name }}</h1>
+        <p class="text-muted mb-3">Категория: <span class="badge bg-secondary">{{ product.category.name }}</span></p>
+        <h3 class="text-primary fw-bold mb-4">{{ product.price }} руб.</h3>
+        
+        <div class="mb-4">
+            <h5>Описание товара:</h5>
+            <p class="lead">{{ product.description }}</p>
+        </div>
+
+        <!-- Кнопка действия в зависимости от роли (по ТЗ) -->
+        <div class="mt-4">
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success btn-lg px-5">Добавить в корзину</a>
             {% else %}
-                <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded" style="min-height: 300px;">
-                    Изображение отсутствует
+                <div class="alert alert-warning" role="alert">
+                    Чтобы добавить товар в корзину, пожалуйста, <a href="{% url 'login' %}" class="alert-link">войдите в аккаунт</a> или <a href="{% url 'register' %}" class="alert-link">зарегистрируйтесь</a>.
                 </div>
             {% endif %}
         </div>
-        <div class="col-md-6 d-flex flex-column justify-content-between">
-            <div>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Главная</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ product.category.name }}</li>
-                    </ol>
-                </nav>
-                <h1 class="display-5 fw-bold mb-3">{{ product.name }}</h1>
-                <p class="fs-4 text-success fw-bold mb-4">{{ product.price }} руб.</p>
-                <h5 class="fw-semibold">Описание товара:</h5>
-                <p class="text-secondary">{{ product.description }}</p>
-            </div>
-            <div class="mt-4">
-                <button class="btn btn-primary btn-lg w-100">Добавить в корзину</button>
-            </div>
-        </div>
     </div>
+</div>
+
+<div class="mt-5">
+    <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">&larr; Вернуться в каталог</a>
 </div>
 {% endblock %}

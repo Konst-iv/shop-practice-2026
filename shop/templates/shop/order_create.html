@@ -1,0 +1,58 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 fw-bold">Оформление заказа</h2>
+
+<div class="row">
+    <!-- Форма доставки -->
+    <div class="col-md-7 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h4 class="card-title mb-4">Детали доставки</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger mt-1" style="font-size: 14px;">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success btn-lg w-100 mt-3">Подтвердить заказ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сводка по корзине -->
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 bg-light">
+            <div class="card-body p-4">
+                <h4 class="card-title mb-3">Ваш заказ</h4>
+                <ul class="list-group list-group-flush mb-3">
+                    {% for item in cart.items.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0">
+                            <div>
+                                <span class="fw-bold">{{ item.product.name }}</span>
+                                <small class="text-muted d-block">{{ item.quantity }} шт. x {{ item.product.price }} руб.</small>
+                            </div>
+                            <span class="text-primary fw-bold">{{ item.get_total_price }} руб.</span>
+                        </li>
+                    {% endfor %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0 fs-5 fw-bold mt-2">
+                        <span>Итого:</span>
+                        <span class="text-success">{{ total_price }} руб.</span>
+                    </li>
+                </ul>
+                <a href="{% url 'cart_detail' %}" class="btn btn-outline-secondary w-100">Редактировать корзину</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

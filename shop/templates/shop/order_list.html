@@ -1,0 +1,59 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 fw-bold">История заказов</h2>
+
+{% if orders %}
+    {% for order in orders %}
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                <span class="fs-5 fw-semibold">Заказ №{{ order.id }} от {{ order.created_at|date:"d.m.Y H:i" }}</span>
+                <span class="badge 
+                    {% if order.status == 'new' %}bg-primary
+                    {% elif order.status == 'assembling' %}bg-warning text-dark
+                    {% elif order.status == 'delivery' %}bg-info text-dark
+                    {% elif order.status == 'delivered' %}bg-success
+                    {% else %}bg-danger{% endif %} fs-6 p-2">
+                    {{ order.get_status_display }}
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Детали доставки -->
+                    <div class="col-md-4 border-end">
+                        <h5 class="fw-bold mb-3 text-muted">Адрес доставки:</h5>
+                        <p class="mb-1"><strong>Получатель:</strong> {{ order.first_name }} {{ order.last_name }}</p>
+                        <p class="mb-1"><strong>Телефон:</strong> {{ order.phone }}</p>
+                        <p class="mb-3"><strong>Адрес:</strong> {{ order.address }}</p>
+                    </div>
+                    
+                    <!-- Состав заказа -->
+                    <div class="col-md-8">
+                        <h5 class="fw-bold mb-3 text-muted">Товары:</h5>
+                        <ul class="list-group list-group-flush">
+                            {% for item in order.items.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+                                    <span>{{ item.product.name }} — <strong>{{ item.quantity }} шт.</strong></span>
+                                    <span class="fw-bold text-secondary">{{ item.get_cost }} руб.</span>
+                                </li>
+                            {% endfor %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3 fs-5 fw-bold border-top">
+                                <span class="text-success">Итоговая стоимость:</span>
+                                <span class="text-success">{{ order.get_total_cost }} руб.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info text-center py-5" role="alert">
+        <h4 class="alert-heading mb-3">Вы еще не сделали ни одного заказа</h4>
+        <p class="mb-4">Перейдите в наш каталог, чтобы выбрать подходящие учебные товары.</p>
+        <a href="{% url 'product_list' %}" class="btn btn-primary px-4">В каталог</a>
+    </div>
+{% endif %}
+{% endblock %}
