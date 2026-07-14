@@ -1,0 +1,107 @@
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background-color: #f8f9fa !important;
+    color: #212529;
+}
+
+.navbar {
+    border-bottom: 1px solid #eaeaea; /* Нежная светлая линия */
+}
+
+.brand-text {
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar-nav .nav-link {
+    color: #495057 !important;
+    transition: all 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #0d6efd !important;
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+}
+
+.navbar-nav .text-muted:hover {
+    background-color: transparent;
+    transform: none;
+}
+
+body .card {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    background-color: #ffffff !important;
+}
+
+body .card-product {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    background-color: #ffffff !important;
+    overflow: hidden;
+    transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out !important;
+}
+
+body .card-product:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25) !important;
+}
+
+.card-product img {
+    height: 220px !important;
+    object-fit: cover !important;
+    transition: transform 0.3s ease-in-out !important;
+}
+
+.card-product:hover img {
+    transform: scale(1.04) !important;
+}
+
+body .btn {
+    border-radius: 8px !important;
+    padding: 8px 18px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out !important;
+}
+
+body .table-responsive {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    background-color: #ffffff !important;
+    padding: 15px;
+}
+
+body .table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+body .table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #dee2e6 !important;
+    padding: 12px 8px;
+}
+
+body .table td {
+    padding: 16px 8px !important;
+    vertical-align: middle !important;
+}
+
+.footer {
+    background-color: transparent !important;
+    border-top: 1px solid #dee2e6 !important;
+    padding: 25px 0;
+    margin-top: 60px;
+}
